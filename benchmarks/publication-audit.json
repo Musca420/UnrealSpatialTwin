@@ -1,5 +1,5 @@
 {
-  "state": "PREPUBLICATION_GATE_CANDIDATE_CHECKS_PASSED_FINAL_ARTIFACT_REQUIRES_RECEIPT",
+  "state": "SOURCE_QUALIFIED_RELEASE_ATTACHMENT_BINDS_FINAL_CHECKS",
   "date": "2026-10-06",
   "target": "UE5.8.2-56702186/Win64/Python3.12/Codex0.160.1",
   "dependency_audit": {
@@ -41,12 +41,19 @@
     "MCP_calls": 45,
     "schemas": 35,
     "expected_rejections": 9,
-    "PyJWT_security_regressions": 2
+    "PyJWT_security_regressions": 2,
+    "receipt": "135 tests, isolated Codex installation and 45 MCP calls passed on the source ZIP before the Windows-path correction. Repeat final checks and consult the release qualification attachment."
   },
   "native_runtime_identity": {
     "byte_identical_measured_files": 59,
     "one_skill_document": "Four relative Markdown hyperlink targets corrected; instructions unchanged"
   },
   "scanner_policy": "Gitleaks8.30.1 default rules plus generated-manifest64hex-only AND allowlist; no source credential exclusions",
-  "publication_gate": "Final release qualification attachment binds finalZIP SHA, exact tree, all scans, tests/install, and remoteCI. Do not publish if those checks fail."
+  "publication_gate": "Final release qualification attachment binds finalZIP SHA, exact tree, all scans, tests/install, and remoteCI. Do not publish if those checks fail.",
+  "ci_regression": {
+    "initial_run": "https://github.com/Musca420/UnrealSpatialTwin/actions/runs/37507543279",
+    "failure": "Six tests failed on Windows runner short-path aliases; full log retained locally.",
+    "fix": "Resolve project/spec/fixture paths before equality; original disposable scope and project-name guards preserved. Benchmark prompts/results/counters unchanged.",
+    "final_run": "See release qualification attachment for the exact source commit and passing CI run."
+  }
 }
