@@ -53,7 +53,7 @@ class TwinTest(unittest.TestCase):
 
     def setUp(self):
         self.directory=tempfile.TemporaryDirectory()
-        self.root=Path(self.directory.name); self.store=Store(self.root)
+        self.root=Path(self.directory.name).resolve(); self.store=Store(self.root)
         self.db=sqlite3.connect(self.root/'world.sqlite')
         schema=Path(__file__).resolve().parents[2]/'Plugins/UnrealSpatialTwin/Resources/schema.sql'
         self.db.executescript(schema.read_text())

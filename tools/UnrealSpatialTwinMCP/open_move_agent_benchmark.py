@@ -11,10 +11,10 @@ ROOT=Path(__file__).resolve().parents[2]
 
 
 def run(spec_path,route,name,cli,plugin,source_schemas=None,*,native_ready=None):
-    spec_path=Path(spec_path).resolve();spec=json.loads(spec_path.read_text());base=Path(spec['project']).parent
+    spec_path=Path(spec_path).resolve();spec=json.loads(spec_path.read_text());project=Path(spec['project']).resolve();base=project.parent
     profile=spec.get('twin_tool_profile','workflow')
     if profile not in ('workflow','focused'):raise ValueError('Unsupported Twin tool profile')
-    assert base==spec_path.parent and Path(spec['project']).stem=='SpatialTwinBench'
+    assert base==spec_path.parent and project.stem=='SpatialTwinBench'
     folder=base/'runs'/name;folder.mkdir(exist_ok=False)
     python=ROOT/'Build/MCP/venv/Scripts/python.exe'
     prompt=f'''Complete this authorized open bulk-movement task in the independent disposable benchmark.

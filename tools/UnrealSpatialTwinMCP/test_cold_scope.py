@@ -9,7 +9,7 @@ from cold_benchmark_control import scope
 class ColdScopeTest(unittest.TestCase):
     def test_requires_exact_owned_ready_restored_run_and_no_replay(self):
         with tempfile.TemporaryDirectory() as tmp:
-            base=Path(tmp);project=base/'SpatialTwinBench.uproject'
+            base=Path(tmp).resolve();project=base/'SpatialTwinBench.uproject'
             project.write_text('{}')
             output=base/'startup'/'Owned';output.mkdir(parents=True)
             run=base/'runs'/'Owned';run.mkdir(parents=True)

@@ -8,7 +8,8 @@ ROOT=Path(__file__).resolve().parents[2]
 
 def run(spec_path,route,name,cli,plugin,source_schemas=None):
     spec_path=Path(spec_path).resolve();spec=json.loads(spec_path.read_text());base=spec_path.parent
-    assert Path(spec['project']).parent==base and Path(spec['project']).stem=='SpatialTwinBench'
+    project=Path(spec['project']).resolve()
+    assert project.parent==base and project.stem=='SpatialTwinBench'
     folder=base/'runs'/name;folder.mkdir(exist_ok=False)
     prompt='''Perform this authorized read-only asset-impact audit in the disposable benchmark. Identify the StaticMesh used by the Actor whose exact label is Bench_Move_00. Discover every Actor whose label starts Bench_ that directly uses that mesh through a component or instance. Count each Actor once. Return its total, counts grouped by the first two underscore-separated label segments (e.g. Bench_Move), and the union of those Actors' source world AABBs in cm, preserving double precision. Also return the mesh's actual direct Asset Registry package dependencies, sorted and unique. Do not infer transitive dependencies or substitute material references. Require known dependency coverage and complete pagination. Derive all identities, counts, coordinates and dependencies from current source; no answer tables are supplied.
 Return only valid JSON with keys mesh_path, dependencies (package paths), owners_total, group_counts (object), bounds ([[minX,minY,minZ],[maxX,maxY,maxZ]]). Unknown/incomplete source must be reported as an error instead of a successful answer. Retain and check source revision consistency on the Twin route. No edits, Shadow patch, render, GUI, shell, browser, direct database, other projects, old trial files, config changes, restart or cleanup. This audit introduces no visual change. The orchestrator independently checks the answer against the official native source before verified delivery.

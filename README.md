@@ -48,6 +48,20 @@ After installation, open your Unreal project workspace and ask in English:
 Exact names, assets and targets must come from your own project. Unsupported
 geometry, stale revisions and ambiguous identities stop dependent writes.
 
+## Get the source
+
+Download the ZIP from [Releases](https://github.com/Musca420/UnrealSpatialTwin/releases),
+or clone the repository:
+
+```powershell
+git clone https://github.com/Musca420/UnrealSpatialTwin.git
+cd UnrealSpatialTwin
+```
+
+Release downloads include a SHA256 checksum and an exact qualification receipt.
+Then follow both installation sections below. Native sources require your own
+licensed Unreal toolchain; this is not a precompiled binary download.
+
 ## Install in Unreal
 
 You need your own licensed Unreal installation and its supported C++ toolchain.
@@ -75,6 +89,7 @@ source directory available; the local marketplace points to its plugin folder.
 
 ```powershell
 py -3.12 -m venv Build/MCP/venv
+$releaseRoot = (Get-Location).Path
 & .\Build\MCP\venv\Scripts\python.exe -m pip install -r .\tools\UnrealSpatialTwinMCP\requirements-tested.txt
 $env:SPATIAL_TWIN_PYTHON = "$releaseRoot\Build\MCP\venv\Scripts\python.exe"
 $env:SPATIAL_TWIN_HOME = "$releaseRoot\SpatialTwinCodexPlugin\runtime"
