@@ -1,0 +1,52 @@
+{
+  "state": "PREPUBLICATION_GATE_CANDIDATE_CHECKS_PASSED_FINAL_ARTIFACT_REQUIRES_RECEIPT",
+  "date": "2026-10-06",
+  "target": "UE5.8.2-56702186/Win64/Python3.12/Codex0.160.1",
+  "dependency_audit": {
+    "tool": "pip-audit",
+    "packages": 30,
+    "known_vulnerabilities_after_update": 0,
+    "fixed_dependency": "PyJWT2.15.0",
+    "original_findings": [
+      "GHSA-42vr-xj54-vc7v",
+      "GHSA-x33g-cr3x-6449"
+    ]
+  },
+  "privacy_changes": [
+    "Nested JSON local home/checkout paths redacted with a regression",
+    "English curated manuals replace internal historical notes; originals retained locally",
+    "Fresh source-only Git history with public Musca420 noreply identity"
+  ],
+  "original_functional_qualification": {
+    "python_tests": 134,
+    "native_phases": 25,
+    "chaos_recast_records": 40,
+    "native_offline_parities": 7
+  },
+  "required_final_checks": [
+    "135 Python tests with patched pins and pip check",
+    "Actual isolated Codex install and 45 MCP calls",
+    "File/history/ZIP Gitleaks and private-value scan",
+    "Manifest/core SHA and unchanged numerical benchmark results"
+  ],
+  "limitations": [
+    "Dated known-advisory/secret scan and focused code review, not independent penetration testing or a universal guarantee",
+    "No whole-game speed or total monetary/development ROI",
+    "Performance416 remains the original versioned measurement; no fresh security-patch performance claim"
+  ],
+  "candidate_checks": {
+    "python_tests": 135,
+    "pip_check": "PASS",
+    "actual_Codex_install": "PASS",
+    "MCP_calls": 45,
+    "schemas": 35,
+    "expected_rejections": 9,
+    "PyJWT_security_regressions": 2
+  },
+  "native_runtime_identity": {
+    "byte_identical_measured_files": 59,
+    "one_skill_document": "Four relative Markdown hyperlink targets corrected; instructions unchanged"
+  },
+  "scanner_policy": "Gitleaks8.30.1 default rules plus generated-manifest64hex-only AND allowlist; no source credential exclusions",
+  "publication_gate": "Final release qualification attachment binds finalZIP SHA, exact tree, all scans, tests/install, and remoteCI. Do not publish if those checks fail."
+}

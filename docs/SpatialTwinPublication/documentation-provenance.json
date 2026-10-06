@@ -1,0 +1,21 @@
+{
+  "policy": "English publication manuals; historical benchmark summaries retain positive/negative/failure boundaries; original files remain local",
+  "original_source_sha256": {
+    "docs/Architecture.md": "04848b6600a1af68be4a8acb901fdba1eb1acde618210cec0df74ee99064cb9d",
+    "docs/DataModel.md": "d33f959b895b904fe38236e2f8255c7f20ed9da49fc78b1ae6c58d2c40212363",
+    "docs/SpatialQueries.md": "bb2bd63288fff77615635179d212c027b659a6626b9052d61cd850aa611314b0",
+    "docs/ShadowWorld.md": "22bbb6b93359f89554ef419b5bec039ee4add16e9b11247cd1f69925725d0447",
+    "docs/UnrealMCPIntegration.md": "899775b32869c60d10273bf6416d4064fcccf14e0be8b7e48d417a372bf1c0c7",
+    "docs/CodexIntegration.md": "2047c2e041db8bbbdee45985c9ec66476c4e110038fd47cc2da979f1bfb78ad6",
+    "docs/Installation.md": "cd5629ac0d73e5fca5275d20abcb83343c747d70d2263a7becc2077170ced963",
+    "docs/Troubleshooting.md": "381df4c98dca599a3fcf8db47e2492317a7a89771516e2f3788fb811dfaa35a6",
+    "docs/SPATIAL_TWIN_BENCHMARK_20261003.md": "5b5a4fafa039c62755a82cbcc4768402c99ed251c356849f710cbc2416346d44",
+    "docs/SPATIAL_TWIN_BENCHMARK_205_20261006.md": "9173c3843ccb19ccc5ca83a3b53c37b0bfcbe61b30800a79e2e574fc15ef53ab",
+    "docs/SPATIAL_TWIN_BENCHMARK_237_20261006.md": "5aca477c57587d2451674c9de8777cc8464f60e462f490ef150cd2e86a06eecc",
+    "docs/SPATIAL_TWIN_BENCHMARK_258_20261006.md": "5fe13b3891d761e59b694810caf30ad315737ef2f126b8ef6dffc3e588dce4c2",
+    "docs/SPATIAL_TWIN_BENCHMARK_266_20261006.md": "b2b34a9a67b3d19e0f74a340c5db1b5513db94cfa48de92e5b820aa561a0aa95",
+    "docs/SPATIAL_TWIN_BENCHMARK_280_20261006.md": "b15e1e05cf06ede03b3a0170d4fe3ea797b81a3cfc7e28190e740acaea02a842",
+    "docs/SPATIAL_TWIN_BENCHMARK_290_20261006.md": "8ae2d991820350cdf37e2f10f01c3653ed1062a155d0fbd77e744cb756e95f5e",
+    "docs/SPATIAL_TWIN_BENCHMARK_416_20261006.md": "acf43e691f0c0639faf3bdd2060d731bba35b6759b2d089100915a2dacaadb89"
+  }
+}

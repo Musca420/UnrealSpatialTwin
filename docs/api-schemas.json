@@ -1,0 +1,3123 @@
+{
+  "source": "actual qualified MCP tool_describe,35 schemas",
+  "tools": [
+    {
+      "description": "Exact registered schemas for 1..8 named Twin tools, including reads exposed through world_read. Request only unknown arguments; no world/editor access. All implementation and validation remain available in every profile.",
+      "inputSchema": {
+        "properties": {
+          "names": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Names",
+            "type": "array"
+          }
+        },
+        "required": [
+          "names"
+        ],
+        "title": "tool_describeArguments",
+        "type": "object"
+      },
+      "name": "tool_describe"
+    },
+    {
+      "description": "Freshness, READY snapshot, coverage and counts; no editor request.",
+      "inputSchema": {
+        "properties": {
+          "include_counts": {
+            "default": false,
+            "title": "Include Counts",
+            "type": "boolean"
+          }
+        },
+        "title": "world_statusArguments",
+        "type": "object"
+      },
+      "name": "world_status"
+    },
+    {
+      "description": "Cached map identities and store paths. Each map keeps its own history/patches.",
+      "inputSchema": {
+        "properties": {
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "title": "world_mapsArguments",
+        "type": "object"
+      },
+      "name": "world_maps"
+    },
+    {
+      "description": "Jev selects and executes one supplied bounded Twin query. Fixed arguments; no Unreal control. One choice bypasses AI.",
+      "inputSchema": {
+        "properties": {
+          "decision_timeout_seconds": {
+            "default": 5,
+            "title": "Decision Timeout Seconds",
+            "type": "number"
+          },
+          "queries": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Queries",
+            "type": "array"
+          },
+          "request": {
+            "title": "Request",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request",
+          "queries"
+        ],
+        "title": "world_queryArguments",
+        "type": "object"
+      },
+      "name": "world_query"
+    },
+    {
+      "description": "Known reads with fresh status. Bundle 1..16 {tool, arguments}, pages max20. Returns status and results:[{tool,data,next_query?}]; follow that row's next_query at the same revision. Entity pages in data have entities/cursor; bounds are [[minX,minY,minZ],[maxX,maxY,maxZ]]. Optional schemas returns tool_schemas:[{name,inputSchema,outputSchema?}], an array to find by name, never schemas[tool]. Omit schemas when known, never send an empty list; supply1..8 distinct names when missing. Source and only missing contracts together; no inventory turn. Rejects mixed Canonical/Shadow versions. No model calls; large results/schemas stay on disk, so narrow fields/pages.",
+      "inputSchema": {
+        "$defs": {
+          "ReadQuery": {
+            "additionalProperties": false,
+            "properties": {
+              "arguments": {
+                "additionalProperties": true,
+                "description": "That read handler's exact parameters; not a top-level world_read field.",
+                "title": "Arguments",
+                "type": "object"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "tool": {
+                "description": "Exact registered read name, for example world_search or world_region.",
+                "title": "Tool",
+                "type": "string"
+              }
+            },
+            "required": [
+              "tool"
+            ],
+            "title": "ReadQuery",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "queries": {
+            "items": {
+              "$ref": "#/$defs/ReadQuery"
+            },
+            "title": "Queries",
+            "type": "array"
+          },
+          "schemas": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Schemas"
+          }
+        },
+        "required": [
+          "queries"
+        ],
+        "title": "world_readArguments",
+        "type": "object"
+      },
+      "name": "world_read",
+      "outputSchema": {
+        "$defs": {
+          "ReadBatch": {
+            "additionalProperties": true,
+            "properties": {
+              "results": {
+                "items": {
+                  "$ref": "#/$defs/ReadResult"
+                },
+                "title": "Results",
+                "type": "array"
+              },
+              "results_reference": {
+                "title": "Results Reference",
+                "type": "string"
+              },
+              "state": {
+                "enum": [
+                  "READY",
+                  "CONFLICTED"
+                ],
+                "title": "State",
+                "type": "string"
+              },
+              "status": {
+                "additionalProperties": true,
+                "title": "Status",
+                "type": "object"
+              },
+              "tool_schemas": {
+                "description": "Requested contracts as an array; find by name. Not schemas[tool] or a dictionary.",
+                "items": {
+                  "$ref": "#/$defs/ToolContract"
+                },
+                "title": "Tool Schemas",
+                "type": "array"
+              },
+              "tool_schemas_reference": {
+                "title": "Tool Schemas Reference",
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ],
+            "title": "ReadBatch",
+            "type": "object"
+          },
+          "ReadQuery": {
+            "additionalProperties": false,
+            "properties": {
+              "arguments": {
+                "additionalProperties": true,
+                "description": "That read handler's exact parameters; not a top-level world_read field.",
+                "title": "Arguments",
+                "type": "object"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "tool": {
+                "description": "Exact registered read name, for example world_search or world_region.",
+                "title": "Tool",
+                "type": "string"
+              }
+            },
+            "required": [
+              "tool"
+            ],
+            "title": "ReadQuery",
+            "type": "object"
+          },
+          "ReadResult": {
+            "additionalProperties": true,
+            "properties": {
+              "data": {
+                "additionalProperties": true,
+                "title": "Data",
+                "type": "object"
+              },
+              "next_query": {
+                "$ref": "#/$defs/ReadQuery",
+                "description": "Continue this exact query; belongs to the result row, not data or the original batch."
+              },
+              "tool": {
+                "title": "Tool",
+                "type": "string"
+              }
+            },
+            "required": [
+              "tool",
+              "data"
+            ],
+            "title": "ReadResult",
+            "type": "object"
+          },
+          "ToolContract": {
+            "additionalProperties": true,
+            "properties": {
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "inputSchema": {
+                "additionalProperties": true,
+                "title": "Inputschema",
+                "type": "object"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "outputSchema": {
+                "additionalProperties": true,
+                "title": "Outputschema",
+                "type": "object"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "inputSchema"
+            ],
+            "title": "ToolContract",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/$defs/ReadResult"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "results_reference": {
+            "title": "Results Reference",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "READY",
+              "CONFLICTED"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "status": {
+            "additionalProperties": true,
+            "title": "Status",
+            "type": "object"
+          },
+          "tool_schemas": {
+            "description": "Requested contracts as an array; find by name. Not schemas[tool] or a dictionary.",
+            "items": {
+              "$ref": "#/$defs/ToolContract"
+            },
+            "title": "Tool Schemas",
+            "type": "array"
+          },
+          "tool_schemas_reference": {
+            "title": "Tool Schemas Reference",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "status"
+        ],
+        "title": "ReadBatchOutput",
+        "type": "object"
+      }
+    },
+    {
+      "description": "Search source label/path/class. Returns {revision,entities,cursor}; each entity retains id/kind and requested fields. component_fields embeds Actor.components:{revision,entities,cursor}, with requested fields (e.g. asset_id) on each component entity. Check exact selection and both cursors locally before dependent reads in the same execution. Requires kind=Actor, limit<=20 and component_limit1..8; follow child cursor with entity_children. No recursive expansion or inferred suitability. Source units cm. StaticMesh is exact mesh kind; Asset is registry metadata.",
+      "inputSchema": {
+        "properties": {
+          "component_fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Component Fields"
+          },
+          "component_limit": {
+            "default": 4,
+            "title": "Component Limit",
+            "type": "integer"
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Kind"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "text": {
+            "default": "",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "title": "world_searchArguments",
+        "type": "object"
+      },
+      "name": "world_search",
+      "outputSchema": {
+        "$defs": {
+          "EntityPage": {
+            "additionalProperties": true,
+            "properties": {
+              "cursor": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Cursor"
+              },
+              "entities": {
+                "items": {
+                  "$ref": "#/$defs/SourceEntity"
+                },
+                "title": "Entities",
+                "type": "array"
+              },
+              "returned": {
+                "title": "Returned",
+                "type": "integer"
+              },
+              "revision": {
+                "title": "Revision",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "revision",
+              "entities",
+              "returned",
+              "cursor"
+            ],
+            "title": "EntityPage",
+            "type": "object"
+          },
+          "SourceEntity": {
+            "additionalProperties": true,
+            "properties": {
+              "bounds": {
+                "anyOf": [
+                  {
+                    "description": "World AABB [[minX,minY,minZ],[maxX,maxY,maxZ]] in cm, not a min/max object.",
+                    "items": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    },
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Bounds"
+              },
+              "id": {
+                "title": "Id",
+                "type": "string"
+              },
+              "kind": {
+                "title": "Kind",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "kind"
+            ],
+            "title": "SourceEntity",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cursor"
+          },
+          "entities": {
+            "items": {
+              "$ref": "#/$defs/SourceEntity"
+            },
+            "title": "Entities",
+            "type": "array"
+          },
+          "returned": {
+            "title": "Returned",
+            "type": "integer"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "revision",
+          "entities",
+          "returned",
+          "cursor"
+        ],
+        "title": "EntityPageOutput",
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sphere region, summary by class or bounded entities. radius is cm.",
+      "inputSchema": {
+        "properties": {
+          "center": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Center",
+            "type": "array"
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "detail": {
+            "default": "summary",
+            "enum": [
+              "summary",
+              "entities"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "kind": {
+            "default": "Actor",
+            "title": "Kind",
+            "type": "string"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "radius": {
+            "title": "Radius",
+            "type": "number"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "center",
+          "radius"
+        ],
+        "title": "world_regionArguments",
+        "type": "object"
+      },
+      "name": "world_region"
+    },
+    {
+      "description": "Compact source identity/pose/bounds. fields supports nested paths such as collision.enabled or properties.bHidden; selecting collision returns all its geometry, so request only needed leaves. Unknown leaves remain absent.",
+      "inputSchema": {
+        "properties": {
+          "entity_id": {
+            "title": "Entity Id",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "entity_id"
+        ],
+        "title": "entity_getArguments",
+        "type": "object"
+      },
+      "name": "entity_get"
+    },
+    {
+      "description": "Direct source containment; paginated.",
+      "inputSchema": {
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "entity_id": {
+            "title": "Entity Id",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "entity_id"
+        ],
+        "title": "entity_childrenArguments",
+        "type": "object"
+      },
+      "name": "entity_children"
+    },
+    {
+      "description": "Actual source relations. No inferred NEAR/LEFT_OF relations.",
+      "inputSchema": {
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "direction": {
+            "default": "both",
+            "enum": [
+              "both",
+              "incoming",
+              "outgoing"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "entity_id": {
+            "title": "Entity Id",
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Kind"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "entity_id"
+        ],
+        "title": "entity_relationshipsArguments",
+        "type": "object"
+      },
+      "name": "entity_relationships"
+    },
+    {
+      "description": "Indexed nearest/k-nearest by distance to exact bounds, in cm.",
+      "inputSchema": {
+        "properties": {
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "k": {
+            "default": 1,
+            "title": "K",
+            "type": "integer"
+          },
+          "kind": {
+            "default": "Actor",
+            "title": "Kind",
+            "type": "string"
+          },
+          "max_distance": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Max Distance"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "position": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Position",
+            "type": "array"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "position"
+        ],
+        "title": "spatial_nearestArguments",
+        "type": "object"
+      },
+      "name": "spatial_nearest"
+    },
+    {
+      "description": "Indexed broad-phase region. Component gives group poses/assets; Actor gives native spawn class. Bundle both in world_read if needed. fields supports collision.enabled, collision.simple_coverage, etc.; avoid full collision geometry for placement planning, use spatial_support and patch_prepare for exact checks. Source: class, transform, bounds, actor_id, asset_id. phase=AABB is not a penetration certificate.",
+      "inputSchema": {
+        "properties": {
+          "aabb": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "title": "Aabb",
+            "type": "array"
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "kind": {
+            "default": "Component",
+            "title": "Kind",
+            "type": "string"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "aabb"
+        ],
+        "title": "spatial_overlapArguments",
+        "type": "object"
+      },
+      "name": "spatial_overlap"
+    },
+    {
+      "description": "Collision triangle raycast with normals and explicit coverage. No screenshots.",
+      "inputSchema": {
+        "properties": {
+          "channel": {
+            "default": "Visibility",
+            "title": "Channel",
+            "type": "string"
+          },
+          "complex": {
+            "default": false,
+            "title": "Complex",
+            "type": "boolean"
+          },
+          "direction": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Direction",
+            "type": "array"
+          },
+          "max_distance": {
+            "title": "Max Distance",
+            "type": "number"
+          },
+          "origin": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Origin",
+            "type": "array"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "origin",
+          "direction",
+          "max_distance"
+        ],
+        "title": "spatial_raycastArguments",
+        "type": "object"
+      },
+      "name": "spatial_raycast"
+    },
+    {
+      "description": "1..128 rays in one consistent indexed read; selected hit fields, explicit completeness. No editor requests.",
+      "inputSchema": {
+        "$defs": {
+          "RayRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "direction": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Direction",
+                "type": "array"
+              },
+              "max_distance": {
+                "minimum": 0,
+                "title": "Max Distance",
+                "type": "number"
+              },
+              "origin": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Origin",
+                "type": "array"
+              }
+            },
+            "required": [
+              "origin",
+              "direction",
+              "max_distance"
+            ],
+            "title": "RayRequest",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "channel": {
+            "default": "Visibility",
+            "title": "Channel",
+            "type": "string"
+          },
+          "complex": {
+            "default": false,
+            "title": "Complex",
+            "type": "boolean"
+          },
+          "detail": {
+            "default": "hits",
+            "enum": [
+              "hits",
+              "distances"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "enum": [
+                    "distance",
+                    "actor_id",
+                    "component_id",
+                    "instance_id",
+                    "position",
+                    "normal",
+                    "triangle",
+                    "primitive"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "rays": {
+            "items": {
+              "$ref": "#/$defs/RayRequest"
+            },
+            "title": "Rays",
+            "type": "array"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rays"
+        ],
+        "title": "spatial_raycast_batchArguments",
+        "type": "object"
+      },
+      "name": "spatial_raycast_batch"
+    },
+    {
+      "description": "Complex collision footprint samples in cm. Compact preserves decisions, positions, height ranges and continuous-support identity/normal/primitive. Full adds source geometry hash/tolerance and certificate scope. Sampling alone never proves continuous support or navigation.",
+      "inputSchema": {
+        "properties": {
+          "candidates": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "clearance": {
+            "default": 0.2,
+            "title": "Clearance",
+            "type": "number"
+          },
+          "detail": {
+            "default": "compact",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "max_distance": {
+            "title": "Max Distance",
+            "type": "number"
+          },
+          "max_height_difference": {
+            "default": 1,
+            "title": "Max Height Difference",
+            "type": "number"
+          },
+          "offsets": {
+            "items": {
+              "description": "Footprint offset [x,y] in cm.",
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "title": "Offsets",
+            "type": "array"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidates",
+          "offsets",
+          "max_distance"
+        ],
+        "title": "spatial_supportArguments",
+        "type": "object"
+      },
+      "name": "spatial_support"
+    },
+    {
+      "description": "Cached asset facts; fields selects exact/nested source fields. Returns {revision,entity,dependency_coverage:{state,package_id,source,live_state,package_dirty}}; coverage is an object. state describes the saved Asset Registry projection; live_state is CURRENT only when indexed package state is known clean, UNKNOWN_UNSAVED when dirty, UNKNOWN for legacy/missing data. include_dependencies adds dependencies:[{id,path}], dependency_count and dependencies_complete. Require CURRENT plus dependencies_complete for the complete Asset Registry projection; unknown or >20 dependencies has dependency_query for pagination. No Unreal request or guarantee about unsaved package references.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "include_dependencies": {
+            "default": false,
+            "title": "Include Dependencies",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "asset_getArguments",
+        "type": "object"
+      },
+      "name": "asset_get"
+    },
+    {
+      "description": "Cache authored FBX and UE-coordinate geometry for Shadow. No Unreal edits or canonical writes.",
+      "inputSchema": {
+        "properties": {
+          "manifest_file": {
+            "title": "Manifest File",
+            "type": "string"
+          },
+          "template_asset_id": {
+            "title": "Template Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "manifest_file",
+          "template_asset_id"
+        ],
+        "title": "asset_stageArguments",
+        "type": "object"
+      },
+      "name": "asset_stage"
+    },
+    {
+      "description": "Indexed asset users; Actor summary returns unique owner counts, source AABB union and bounded groups, without serializing Actors. Label groups use the first label_group_depth underscore-separated segments. Incomplete bounds/groups are explicit; narrow label_prefix to refine. No semantic inference or Unreal requests.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "detail": {
+            "default": "entities",
+            "enum": [
+              "entities",
+              "summary"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "group_by": {
+            "default": "class",
+            "enum": [
+              "class",
+              "level",
+              "label_prefix"
+            ],
+            "title": "Group By",
+            "type": "string"
+          },
+          "kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Kind"
+          },
+          "label_group_depth": {
+            "default": 2,
+            "title": "Label Group Depth",
+            "type": "integer"
+          },
+          "label_prefix": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Label Prefix"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "asset_usageArguments",
+        "type": "object"
+      },
+      "name": "asset_usage"
+    },
+    {
+      "description": "Geometry metadata and file reference; never serializes all triangles.",
+      "inputSchema": {
+        "properties": {
+          "geometry_hash": {
+            "title": "Geometry Hash",
+            "type": "string"
+          }
+        },
+        "required": [
+          "geometry_hash"
+        ],
+        "title": "geometry_getArguments",
+        "type": "object"
+      },
+      "name": "geometry_get"
+    },
+    {
+      "description": "Canonical committed changes, with before/after source state.",
+      "inputSchema": {
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "since_revision": {
+            "title": "Since Revision",
+            "type": "integer"
+          },
+          "until_revision": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Until Revision"
+          }
+        },
+        "required": [
+          "since_revision"
+        ],
+        "title": "world_changesArguments",
+        "type": "object"
+      },
+      "name": "world_changes"
+    },
+    {
+      "description": "Net entity difference over a revision range (not change count).",
+      "inputSchema": {
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "revision_a": {
+            "title": "Revision A",
+            "type": "integer"
+          },
+          "revision_b": {
+            "title": "Revision B",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "revision_a",
+          "revision_b"
+        ],
+        "title": "world_diffArguments",
+        "type": "object"
+      },
+      "name": "world_diff"
+    },
+    {
+      "description": "Exported navmesh coverage and offline backend availability.",
+      "inputSchema": {
+        "properties": {
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Agent"
+          }
+        },
+        "title": "navigation_statusArguments",
+        "type": "object"
+      },
+      "name": "navigation_status"
+    },
+    {
+      "description": "Detour path within exported tiles; baseline_tile_pool_full warns of capacity. UNKNOWN is never unreachable proof.",
+      "inputSchema": {
+        "properties": {
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Agent"
+          },
+          "end": {
+            "items": {
+              "type": "number"
+            },
+            "title": "End",
+            "type": "array"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          },
+          "start": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Start",
+            "type": "array"
+          },
+          "world": {
+            "default": "canonical",
+            "enum": [
+              "canonical",
+              "shadow"
+            ],
+            "title": "World",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "navigation_pathArguments",
+        "type": "object"
+      },
+      "name": "navigation_path"
+    },
+    {
+      "description": "",
+      "inputSchema": {
+        "properties": {
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Agent"
+          },
+          "position": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Position",
+            "type": "array"
+          }
+        },
+        "required": [
+          "position"
+        ],
+        "title": "is_navigableArguments",
+        "type": "object"
+      },
+      "name": "is_navigable"
+    },
+    {
+      "description": "",
+      "inputSchema": {
+        "properties": {
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Agent"
+          },
+          "position": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Position",
+            "type": "array"
+          }
+        },
+        "required": [
+          "position"
+        ],
+        "title": "nearest_navigable_positionArguments",
+        "type": "object"
+      },
+      "name": "nearest_navigable_position"
+    },
+    {
+      "description": "",
+      "inputSchema": {
+        "properties": {
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Agent"
+          },
+          "end": {
+            "items": {
+              "type": "number"
+            },
+            "title": "End",
+            "type": "array"
+          },
+          "start": {
+            "items": {
+              "type": "number"
+            },
+            "title": "Start",
+            "type": "array"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "reachableArguments",
+        "type": "object"
+      },
+      "name": "reachable"
+    },
+    {
+      "description": "Sample support and prepare a validated Shadow placement patch in one call. candidates are world ray origins above the desired locations, cm. Uses observed asset bounds for a 3x3 footprint/bottom offset; preserves rotation/navigation defaults. For a new Blender FBX, optional manifest_file stages authored geometry using asset_id as the observed canonical spawn-profile template, then plans with the staged asset in this same revision; no separate asset_stage call/import. Optional positive size_cm sets local-axis dimensions from asset bounds, retaining scale signs. continuous_support is PROVEN only for a single actual primitive box face, actual collision triangle, or a verified closed convex collision-mesh face covering all footprint corners; otherwise UNPROVEN, finite samples alone are not proof. include_operations returns exact validated operations. Rejects unsupported candidates; UNKNOWN blocks the batch. Strict collision/navigation validation included; no Unreal edits.",
+      "inputSchema": {
+        "properties": {
+          "actor_class": {
+            "title": "Actor Class",
+            "type": "string"
+          },
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "base_revision": {
+            "title": "Base Revision",
+            "type": "integer"
+          },
+          "candidates": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "clearance": {
+            "default": 0.2,
+            "title": "Clearance",
+            "type": "number"
+          },
+          "include_operations": {
+            "default": false,
+            "title": "Include Operations",
+            "type": "boolean"
+          },
+          "label_prefix": {
+            "title": "Label Prefix",
+            "type": "string"
+          },
+          "manifest_file": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Manifest File"
+          },
+          "max_distance": {
+            "title": "Max Distance",
+            "type": "number"
+          },
+          "max_height_difference": {
+            "default": 1,
+            "title": "Max Height Difference",
+            "type": "number"
+          },
+          "rotation": {
+            "default": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "description": "Unit quaternion [x,y,z,w], not Euler angles.",
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Rotation",
+            "type": "array"
+          },
+          "scale": {
+            "default": [
+              1,
+              1,
+              1
+            ],
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "title": "Scale",
+            "type": "array"
+          },
+          "size_cm": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Size Cm"
+          }
+        },
+        "required": [
+          "candidates",
+          "asset_id",
+          "actor_class",
+          "base_revision",
+          "max_distance",
+          "label_prefix"
+        ],
+        "title": "patch_placeArguments",
+        "type": "object"
+      },
+      "name": "patch_place"
+    },
+    {
+      "description": "Offline vertical grounding of explicitly selected Actors. Preserves XY, rotation, scale, assets and navigation defaults. Uses each actual world bounds envelope (including collision bounds), nine footprint samples and PROVEN continuous support; bounds are conservative, not an exact bottom-contact/physics solver. Refuses moving supports, selected ancestor/descendant pairs, unsupported geometry and tilted/unknown surfaces; no partial patch. Strict Shadow collision/navigation validation. No Unreal actions or semantic target selection.",
+      "inputSchema": {
+        "properties": {
+          "base_revision": {
+            "title": "Base Revision",
+            "type": "integer"
+          },
+          "clearance": {
+            "default": 0.2,
+            "title": "Clearance",
+            "type": "number"
+          },
+          "detail": {
+            "default": "compact",
+            "enum": [
+              "compact",
+              "full"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "entity_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Entity Ids",
+            "type": "array"
+          },
+          "include_operations": {
+            "default": false,
+            "title": "Include Operations",
+            "type": "boolean"
+          },
+          "max_distance": {
+            "title": "Max Distance",
+            "type": "number"
+          },
+          "max_height_difference": {
+            "default": 1,
+            "title": "Max Height Difference",
+            "type": "number"
+          },
+          "max_tilt_degrees": {
+            "default": 0.1,
+            "title": "Max Tilt Degrees",
+            "type": "number"
+          }
+        },
+        "required": [
+          "entity_ids",
+          "base_revision",
+          "max_distance"
+        ],
+        "title": "patch_groundArguments",
+        "type": "object"
+      },
+      "name": "patch_ground",
+      "outputSchema": {
+        "$defs": {
+          "GroundPlan": {
+            "additionalProperties": true,
+            "properties": {
+              "accepted_count": {
+                "title": "Accepted Count",
+                "type": "integer"
+              },
+              "base_revision": {
+                "title": "Base Revision",
+                "type": "integer"
+              },
+              "continuous_support": {
+                "$ref": "#/$defs/GroundSupport"
+              },
+              "id": {
+                "description": "Prepared patch identity. Pass this value as patch_id to the live executor; this response has id, not patch_id.",
+                "title": "Id",
+                "type": "string"
+              },
+              "operations": {
+                "items": {
+                  "$ref": "#/$defs/PatchOperation"
+                },
+                "title": "Operations",
+                "type": "array"
+              },
+              "rejected": {
+                "description": "Rejected entries; a successful complete plan has []. There is no rejected_count field.",
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "title": "Rejected",
+                "type": "array"
+              },
+              "status": {
+                "description": "Use status, not state. BLOCKED creates no patch. Compact success has accepted_count, not accepted.",
+                "enum": [
+                  "BLOCKED",
+                  "DRAFT",
+                  "VALIDATED",
+                  "INVALID",
+                  "CONFLICTED"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "validation": {
+                "$ref": "#/$defs/PatchValidation",
+                "description": "Strict checks live here: valid, errors_count, new_collisions_count, errors and navigation. Not top-level plan.errors or plan.new_collisions."
+              }
+            },
+            "required": [
+              "status",
+              "base_revision"
+            ],
+            "title": "GroundPlan",
+            "type": "object"
+          },
+          "GroundSupport": {
+            "additionalProperties": true,
+            "properties": {
+              "maximum_height_difference": {
+                "description": "Maximum sampled support height range in cm; compare to requested max_height_difference.",
+                "title": "Maximum Height Difference",
+                "type": "number"
+              },
+              "minimum_normal_z": {
+                "description": "Minimum support normal Z; compare to cos(max_tilt_degrees). There is no separate uprightness object.",
+                "title": "Minimum Normal Z",
+                "type": "number"
+              },
+              "state": {
+                "const": "PROVEN",
+                "title": "State",
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "minimum_normal_z",
+              "maximum_height_difference"
+            ],
+            "title": "GroundSupport",
+            "type": "object"
+          },
+          "PatchOperation": {
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "MOVE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "SCALE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "ROTATE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "asset": {
+                "description": "StaticMesh entity ID (asset:/...), for CREATE_ACTOR mesh or required CHANGE_ASSET. Not a package ID.",
+                "title": "Asset",
+                "type": "string"
+              },
+              "class": {
+                "description": "Required for CREATE_ACTOR: exact exported Unreal class from source field class.",
+                "title": "Class",
+                "type": "string"
+              },
+              "component_id": {
+                "description": "CHANGE_ASSET component selector when the Actor has multiple mesh components.",
+                "title": "Component Id",
+                "type": "string"
+              },
+              "component_properties": {
+                "$ref": "#/$defs/SpawnComponentProperties"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "operation_id": {
+                "minLength": 1,
+                "title": "Operation Id",
+                "type": "string"
+              },
+              "parent": {
+                "description": "Required ATTACH: persistent Actor ID or earlier temporary CREATE target.",
+                "title": "Parent",
+                "type": "string"
+              },
+              "property": {
+                "description": "Required SET_PROPERTY: exported editable property name.",
+                "title": "Property",
+                "type": "string"
+              },
+              "target": {
+                "description": "Persistent entity ID; CREATE_ACTOR uses a new temporary ID referenced by later operations.",
+                "minLength": 1,
+                "title": "Target",
+                "type": "string"
+              },
+              "transform": {
+                "$ref": "#/$defs/WorldTransform",
+                "description": "World pose in cm; CREATE_ACTOR or required SET_INSTANCE_TRANSFORM."
+              },
+              "type": {
+                "enum": [
+                  "CREATE_ACTOR",
+                  "DELETE_ACTOR",
+                  "MOVE_ACTOR",
+                  "ROTATE_ACTOR",
+                  "SCALE_ACTOR",
+                  "SET_PROPERTY",
+                  "ATTACH",
+                  "DETACH",
+                  "CHANGE_ASSET",
+                  "SET_INSTANCE_TRANSFORM"
+                ],
+                "title": "Type",
+                "type": "string"
+              },
+              "value": {
+                "description": "Required MOVE_ACTOR/SCALE_ACTOR: [x,y,z]; ROTATE_ACTOR: unit quaternion [x,y,z,w]; SET_PROPERTY: typed JSON value.",
+                "title": "Value"
+              }
+            },
+            "required": [
+              "type",
+              "target"
+            ],
+            "title": "PatchOperation",
+            "type": "object"
+          },
+          "PatchValidation": {
+            "additionalProperties": true,
+            "properties": {
+              "base_revision": {
+                "title": "Base Revision",
+                "type": "integer"
+              },
+              "errors": {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "title": "Errors",
+                "type": "array"
+              },
+              "errors_count": {
+                "title": "Errors Count",
+                "type": "integer"
+              },
+              "navigation": {
+                "additionalProperties": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "description": "Named diagnostics, not an aggregate valid/state field: each configured agent must have state READY; availability.state NOT_CONFIGURED explicitly means this map has no navigation. UNKNOWN/UNAVAILABLE is not approval; do not invent navigation.valid.",
+                "title": "Navigation",
+                "type": "object"
+              },
+              "new_collisions_count": {
+                "title": "New Collisions Count",
+                "type": "integer"
+              },
+              "valid": {
+                "title": "Valid",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "valid",
+              "base_revision",
+              "errors_count",
+              "new_collisions_count",
+              "errors",
+              "navigation"
+            ],
+            "title": "PatchValidation",
+            "type": "object"
+          },
+          "SpawnComponentProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "bCanEverAffectNavigation": {
+                "title": "Bcaneveraffectnavigation",
+                "type": "boolean"
+              }
+            },
+            "title": "SpawnComponentProperties",
+            "type": "object"
+          },
+          "WorldTransform": {
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Position",
+                "type": "array"
+              },
+              "rotation": {
+                "description": "Unit quaternion [x,y,z,w], not Euler angles.",
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "title": "Rotation",
+                "type": "array"
+              },
+              "scale": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Scale",
+                "type": "array"
+              }
+            },
+            "required": [
+              "position",
+              "rotation",
+              "scale"
+            ],
+            "title": "WorldTransform",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "accepted_count": {
+            "title": "Accepted Count",
+            "type": "integer"
+          },
+          "base_revision": {
+            "title": "Base Revision",
+            "type": "integer"
+          },
+          "continuous_support": {
+            "$ref": "#/$defs/GroundSupport"
+          },
+          "id": {
+            "description": "Prepared patch identity. Pass this value as patch_id to the live executor; this response has id, not patch_id.",
+            "title": "Id",
+            "type": "string"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/$defs/PatchOperation"
+            },
+            "title": "Operations",
+            "type": "array"
+          },
+          "rejected": {
+            "description": "Rejected entries; a successful complete plan has []. There is no rejected_count field.",
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Rejected",
+            "type": "array"
+          },
+          "status": {
+            "description": "Use status, not state. BLOCKED creates no patch. Compact success has accepted_count, not accepted.",
+            "enum": [
+              "BLOCKED",
+              "DRAFT",
+              "VALIDATED",
+              "INVALID",
+              "CONFLICTED"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "validation": {
+            "$ref": "#/$defs/PatchValidation",
+            "description": "Strict checks live here: valid, errors_count, new_collisions_count, errors and navigation. Not top-level plan.errors or plan.new_collisions."
+          }
+        },
+        "required": [
+          "status",
+          "base_revision"
+        ],
+        "title": "GroundPlanOutput",
+        "type": "object"
+      }
+    },
+    {
+      "description": "Create/update and validate Shadow in one call. Explicit current base; compact diagnostics, no Unreal edits.",
+      "inputSchema": {
+        "$defs": {
+          "PatchOperation": {
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "MOVE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "SCALE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "ROTATE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "asset": {
+                "description": "StaticMesh entity ID (asset:/...), for CREATE_ACTOR mesh or required CHANGE_ASSET. Not a package ID.",
+                "title": "Asset",
+                "type": "string"
+              },
+              "class": {
+                "description": "Required for CREATE_ACTOR: exact exported Unreal class from source field class.",
+                "title": "Class",
+                "type": "string"
+              },
+              "component_id": {
+                "description": "CHANGE_ASSET component selector when the Actor has multiple mesh components.",
+                "title": "Component Id",
+                "type": "string"
+              },
+              "component_properties": {
+                "$ref": "#/$defs/SpawnComponentProperties"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "operation_id": {
+                "minLength": 1,
+                "title": "Operation Id",
+                "type": "string"
+              },
+              "parent": {
+                "description": "Required ATTACH: persistent Actor ID or earlier temporary CREATE target.",
+                "title": "Parent",
+                "type": "string"
+              },
+              "property": {
+                "description": "Required SET_PROPERTY: exported editable property name.",
+                "title": "Property",
+                "type": "string"
+              },
+              "target": {
+                "description": "Persistent entity ID; CREATE_ACTOR uses a new temporary ID referenced by later operations.",
+                "minLength": 1,
+                "title": "Target",
+                "type": "string"
+              },
+              "transform": {
+                "$ref": "#/$defs/WorldTransform",
+                "description": "World pose in cm; CREATE_ACTOR or required SET_INSTANCE_TRANSFORM."
+              },
+              "type": {
+                "enum": [
+                  "CREATE_ACTOR",
+                  "DELETE_ACTOR",
+                  "MOVE_ACTOR",
+                  "ROTATE_ACTOR",
+                  "SCALE_ACTOR",
+                  "SET_PROPERTY",
+                  "ATTACH",
+                  "DETACH",
+                  "CHANGE_ASSET",
+                  "SET_INSTANCE_TRANSFORM"
+                ],
+                "title": "Type",
+                "type": "string"
+              },
+              "value": {
+                "description": "Required MOVE_ACTOR/SCALE_ACTOR: [x,y,z]; ROTATE_ACTOR: unit quaternion [x,y,z,w]; SET_PROPERTY: typed JSON value.",
+                "title": "Value"
+              }
+            },
+            "required": [
+              "type",
+              "target"
+            ],
+            "title": "PatchOperation",
+            "type": "object"
+          },
+          "SpawnComponentProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "bCanEverAffectNavigation": {
+                "title": "Bcaneveraffectnavigation",
+                "type": "boolean"
+              }
+            },
+            "title": "SpawnComponentProperties",
+            "type": "object"
+          },
+          "WorldTransform": {
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Position",
+                "type": "array"
+              },
+              "rotation": {
+                "description": "Unit quaternion [x,y,z,w], not Euler angles.",
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "title": "Rotation",
+                "type": "array"
+              },
+              "scale": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Scale",
+                "type": "array"
+              }
+            },
+            "required": [
+              "position",
+              "rotation",
+              "scale"
+            ],
+            "title": "WorldTransform",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "base_revision": {
+            "title": "Base Revision",
+            "type": "integer"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/$defs/PatchOperation"
+            },
+            "title": "Operations",
+            "type": "array"
+          },
+          "patch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Patch Id"
+          }
+        },
+        "required": [
+          "operations",
+          "base_revision"
+        ],
+        "title": "patch_prepareArguments",
+        "type": "object"
+      },
+      "name": "patch_prepare"
+    },
+    {
+      "description": "Create DRAFT; cannot write the canonical database or execute Unreal.",
+      "inputSchema": {
+        "$defs": {
+          "PatchOperation": {
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "MOVE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "SCALE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "ROTATE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "asset": {
+                "description": "StaticMesh entity ID (asset:/...), for CREATE_ACTOR mesh or required CHANGE_ASSET. Not a package ID.",
+                "title": "Asset",
+                "type": "string"
+              },
+              "class": {
+                "description": "Required for CREATE_ACTOR: exact exported Unreal class from source field class.",
+                "title": "Class",
+                "type": "string"
+              },
+              "component_id": {
+                "description": "CHANGE_ASSET component selector when the Actor has multiple mesh components.",
+                "title": "Component Id",
+                "type": "string"
+              },
+              "component_properties": {
+                "$ref": "#/$defs/SpawnComponentProperties"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "operation_id": {
+                "minLength": 1,
+                "title": "Operation Id",
+                "type": "string"
+              },
+              "parent": {
+                "description": "Required ATTACH: persistent Actor ID or earlier temporary CREATE target.",
+                "title": "Parent",
+                "type": "string"
+              },
+              "property": {
+                "description": "Required SET_PROPERTY: exported editable property name.",
+                "title": "Property",
+                "type": "string"
+              },
+              "target": {
+                "description": "Persistent entity ID; CREATE_ACTOR uses a new temporary ID referenced by later operations.",
+                "minLength": 1,
+                "title": "Target",
+                "type": "string"
+              },
+              "transform": {
+                "$ref": "#/$defs/WorldTransform",
+                "description": "World pose in cm; CREATE_ACTOR or required SET_INSTANCE_TRANSFORM."
+              },
+              "type": {
+                "enum": [
+                  "CREATE_ACTOR",
+                  "DELETE_ACTOR",
+                  "MOVE_ACTOR",
+                  "ROTATE_ACTOR",
+                  "SCALE_ACTOR",
+                  "SET_PROPERTY",
+                  "ATTACH",
+                  "DETACH",
+                  "CHANGE_ASSET",
+                  "SET_INSTANCE_TRANSFORM"
+                ],
+                "title": "Type",
+                "type": "string"
+              },
+              "value": {
+                "description": "Required MOVE_ACTOR/SCALE_ACTOR: [x,y,z]; ROTATE_ACTOR: unit quaternion [x,y,z,w]; SET_PROPERTY: typed JSON value.",
+                "title": "Value"
+              }
+            },
+            "required": [
+              "type",
+              "target"
+            ],
+            "title": "PatchOperation",
+            "type": "object"
+          },
+          "SpawnComponentProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "bCanEverAffectNavigation": {
+                "title": "Bcaneveraffectnavigation",
+                "type": "boolean"
+              }
+            },
+            "title": "SpawnComponentProperties",
+            "type": "object"
+          },
+          "WorldTransform": {
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Position",
+                "type": "array"
+              },
+              "rotation": {
+                "description": "Unit quaternion [x,y,z,w], not Euler angles.",
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "title": "Rotation",
+                "type": "array"
+              },
+              "scale": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Scale",
+                "type": "array"
+              }
+            },
+            "required": [
+              "position",
+              "rotation",
+              "scale"
+            ],
+            "title": "WorldTransform",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "base_revision": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Base Revision"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/$defs/PatchOperation"
+            },
+            "title": "Operations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "operations"
+        ],
+        "title": "patch_createArguments",
+        "type": "object"
+      },
+      "name": "patch_create"
+    },
+    {
+      "description": "",
+      "inputSchema": {
+        "$defs": {
+          "PatchOperation": {
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "MOVE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "SCALE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 3,
+                      "minItems": 3,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "const": "ROTATE_ACTOR"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "maxItems": 4,
+                      "minItems": 4,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "asset": {
+                "description": "StaticMesh entity ID (asset:/...), for CREATE_ACTOR mesh or required CHANGE_ASSET. Not a package ID.",
+                "title": "Asset",
+                "type": "string"
+              },
+              "class": {
+                "description": "Required for CREATE_ACTOR: exact exported Unreal class from source field class.",
+                "title": "Class",
+                "type": "string"
+              },
+              "component_id": {
+                "description": "CHANGE_ASSET component selector when the Actor has multiple mesh components.",
+                "title": "Component Id",
+                "type": "string"
+              },
+              "component_properties": {
+                "$ref": "#/$defs/SpawnComponentProperties"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "operation_id": {
+                "minLength": 1,
+                "title": "Operation Id",
+                "type": "string"
+              },
+              "parent": {
+                "description": "Required ATTACH: persistent Actor ID or earlier temporary CREATE target.",
+                "title": "Parent",
+                "type": "string"
+              },
+              "property": {
+                "description": "Required SET_PROPERTY: exported editable property name.",
+                "title": "Property",
+                "type": "string"
+              },
+              "target": {
+                "description": "Persistent entity ID; CREATE_ACTOR uses a new temporary ID referenced by later operations.",
+                "minLength": 1,
+                "title": "Target",
+                "type": "string"
+              },
+              "transform": {
+                "$ref": "#/$defs/WorldTransform",
+                "description": "World pose in cm; CREATE_ACTOR or required SET_INSTANCE_TRANSFORM."
+              },
+              "type": {
+                "enum": [
+                  "CREATE_ACTOR",
+                  "DELETE_ACTOR",
+                  "MOVE_ACTOR",
+                  "ROTATE_ACTOR",
+                  "SCALE_ACTOR",
+                  "SET_PROPERTY",
+                  "ATTACH",
+                  "DETACH",
+                  "CHANGE_ASSET",
+                  "SET_INSTANCE_TRANSFORM"
+                ],
+                "title": "Type",
+                "type": "string"
+              },
+              "value": {
+                "description": "Required MOVE_ACTOR/SCALE_ACTOR: [x,y,z]; ROTATE_ACTOR: unit quaternion [x,y,z,w]; SET_PROPERTY: typed JSON value.",
+                "title": "Value"
+              }
+            },
+            "required": [
+              "type",
+              "target"
+            ],
+            "title": "PatchOperation",
+            "type": "object"
+          },
+          "SpawnComponentProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "bCanEverAffectNavigation": {
+                "title": "Bcaneveraffectnavigation",
+                "type": "boolean"
+              }
+            },
+            "title": "SpawnComponentProperties",
+            "type": "object"
+          },
+          "WorldTransform": {
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Position",
+                "type": "array"
+              },
+              "rotation": {
+                "description": "Unit quaternion [x,y,z,w], not Euler angles.",
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "title": "Rotation",
+                "type": "array"
+              },
+              "scale": {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "title": "Scale",
+                "type": "array"
+              }
+            },
+            "required": [
+              "position",
+              "rotation",
+              "scale"
+            ],
+            "title": "WorldTransform",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "operations": {
+            "items": {
+              "$ref": "#/$defs/PatchOperation"
+            },
+            "title": "Operations",
+            "type": "array"
+          },
+          "patch_id": {
+            "title": "Patch Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "patch_id",
+          "operations"
+        ],
+        "title": "patch_updateArguments",
+        "type": "object"
+      },
+      "name": "patch_update"
+    },
+    {
+      "description": "Validate shadow effects, rejecting unknown essential facts.",
+      "inputSchema": {
+        "properties": {
+          "patch_id": {
+            "title": "Patch Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "patch_id"
+        ],
+        "title": "patch_validateArguments",
+        "type": "object"
+      },
+      "name": "patch_validate"
+    },
+    {
+      "description": "",
+      "inputSchema": {
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Cursor"
+          },
+          "detail": {
+            "default": "entities",
+            "enum": [
+              "entities",
+              "operations",
+              "collisions"
+            ],
+            "title": "Detail",
+            "type": "string"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Fields"
+          },
+          "limit": {
+            "default": 50,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "patch_id": {
+            "title": "Patch Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "patch_id"
+        ],
+        "title": "patch_previewArguments",
+        "type": "object"
+      },
+      "name": "patch_preview"
+    },
+    {
+      "description": "Prepare/validate only an unexecuted suffix after proving interrupted effects. No Unreal calls or replay.",
+      "inputSchema": {
+        "properties": {
+          "patch_id": {
+            "title": "Patch Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "patch_id"
+        ],
+        "title": "patch_continueArguments",
+        "type": "object"
+      },
+      "name": "patch_continue"
+    },
+    {
+      "description": "Inspect, or reconcile interrupted effects as of Canonical. Recovery never replays or saves Unreal.",
+      "inputSchema": {
+        "properties": {
+          "patch_id": {
+            "title": "Patch Id",
+            "type": "string"
+          },
+          "recover": {
+            "default": false,
+            "title": "Recover",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "patch_id"
+        ],
+        "title": "patch_statusArguments",
+        "type": "object"
+      },
+      "name": "patch_status"
+    }
+  ]
+}

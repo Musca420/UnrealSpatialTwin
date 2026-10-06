@@ -1,0 +1,34 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "Unreal Spatial Twin",
+  "Description": "Persistent spatial world model. Official Unreal MCP remains the action layer.",
+  "Category": "Editor",
+  "CanContainContent": false,
+  "SupportedTargetPlatforms": [
+    "Win64"
+  ],
+  "Modules": [
+    {
+      "Name": "SpatialTwinCore",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    },
+    {
+      "Name": "UnrealSpatialTwin",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "ModelContextProtocol",
+      "Enabled": true
+    },
+    {
+      "Name": "ToolsetRegistry",
+      "Enabled": true
+    }
+  ]
+}

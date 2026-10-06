@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated SHA256 manifest inventory: only 64 lowercase hex digests in manifest.json; all entries verified against source bytes."
+condition = "AND"
+paths = ['(^|[\\/])manifest\.json$']
+regexTarget = "secret"
+regexes = ['^[a-f0-9]{64}$']

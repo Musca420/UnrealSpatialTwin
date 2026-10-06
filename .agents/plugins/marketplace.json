@@ -1,0 +1,20 @@
+{
+  "name": "unreal-spatial-twin-source",
+  "interface": {
+    "displayName": "Unreal Spatial Twin source"
+  },
+  "plugins": [
+    {
+      "name": "unreal-spatial-twin",
+      "source": {
+        "source": "local",
+        "path": "./SpatialTwinCodexPlugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

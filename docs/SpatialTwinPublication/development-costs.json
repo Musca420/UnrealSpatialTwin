@@ -1,0 +1,47 @@
+{
+  "scope": "Native orchestrator development/qualification since main428launch; includes failed attempts, preparation, village and public packaging. NOT a paired production benchmark or billing.",
+  "from_utc": "2026-10-06T15:02:58Z",
+  "phase_boundary_checkpoint22_utc": "2026-10-06T16:15:35.606133+00:00",
+  "to_native_counter_utc": "2026-10-06T17:04:12.578Z",
+  "native_parent_deltas": {
+    "village": {
+      "input_tokens": 17647518,
+      "cached_input_tokens": 17091456,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 76297,
+      "reasoning_output_tokens": 36771,
+      "total_tokens": 17723815
+    },
+    "package": {
+      "input_tokens": 13638468,
+      "cached_input_tokens": 13247360,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 69181,
+      "reasoning_output_tokens": 30016,
+      "total_tokens": 13707649
+    }
+  },
+  "native_counter_events": {
+    "village": 128,
+    "package": 85
+  },
+  "native_counter_resets": {
+    "village": 0,
+    "package": 0
+  },
+  "verified416task_tokens_separate": 2780605,
+  "failed398author_tokens_separate": 147409,
+  "setup_seconds": {
+    "native484matrix": 391.5602814,
+    "public_Blender_recipe500": 3.4160711000004085,
+    "isolated_public134Python496": 19.325,
+    "native_Codex_install497": 0.23474060000444297
+  },
+  "limits": [
+    "Cached input included; reasoning is already part of output",
+    "Approximate phase boundary is persisted checkpoint22, not an A/B benchmark",
+    "Reviewer/account billing unavailable; no total ROI claim",
+    "Final archive/checks/recovery/final message after this native snapshot excluded",
+    "Native phase/raw failed receipts retained independently, not hidden in successful elapsed medians"
+  ]
+}

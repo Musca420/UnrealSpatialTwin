@@ -1,0 +1,1 @@
+See README.md for the standalone public repository installation. Native source: Plugins/UnrealSpatialTwin. Codex plugin: SpatialTwinCodexPlugin. Full qualification: BENCHMARKS.md.

@@ -1,0 +1,72 @@
+{
+  "state": "VERIFIED_FOUR_ACTIVITY_PORTFOLIO",
+  "protocol": "Build/SpatialTwinBench/portfolio416-protocol.json",
+  "activities": {
+    "audit": {
+      "without": {
+        "tokens": 74977.0,
+        "verified_delivery_seconds": 88.42380970000158
+      },
+      "with": {
+        "tokens": 47780.0,
+        "verified_delivery_seconds": 55.182823450002616
+      }
+    },
+    "reuse": {
+      "without": {
+        "tokens": 83526.5,
+        "verified_delivery_seconds": 165.57698795000033
+      },
+      "with": {
+        "tokens": 82938.0,
+        "verified_delivery_seconds": 90.6845467999974
+      }
+    },
+    "batch": {
+      "without": {
+        "tokens": 797421.0,
+        "verified_delivery_seconds": 361.70035165000263
+      },
+      "with": {
+        "tokens": 118704.0,
+        "verified_delivery_seconds": 105.26456990000042
+      }
+    },
+    "author": {
+      "without": {
+        "tokens": 99831.5,
+        "verified_delivery_seconds": 156.36626989999968
+      },
+      "with": {
+        "tokens": 85124.5,
+        "verified_delivery_seconds": 102.64714829999866
+      }
+    }
+  },
+  "aggregate": {
+    "without": {
+      "tokens": 1055756.0,
+      "verified_delivery_seconds": 772.0674192000042
+    },
+    "with": {
+      "tokens": 334546.5,
+      "verified_delivery_seconds": 353.7790884499991
+    }
+  },
+  "reduction_percent": {
+    "tokens": 68.31213841076915,
+    "verified_delivery_seconds": 54.17769489398017
+  },
+  "minimum_thresholds_met": true,
+  "nominal_thresholds_met": true,
+  "actual_successful_task_tokens": 2780605,
+  "general_game_production_goal_achieved": false,
+  "limits": [
+    "Four spatial/asset-production activities, not whole-game/Blueprint/animation/gameplay coverage.",
+    "Old205/237 are retained but excluded from this same-version aggregate.",
+    "Jev unused; native billing/reviewer/account usage unavailable.",
+    "Main game untouched; village last; no publication."
+  ],
+  "original_receipt_sha256": "b9b408c64daf461c7a62b863e211b180c74674a725ef68134fa0fe7ebde3b9d6",
+  "public_copy_note": "Local checkout locators redacted; measurements and outcomes unchanged. Runtime/native hashes retain original identity."
+}

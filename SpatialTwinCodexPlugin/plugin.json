@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "unreal-spatial-twin",
+  "version": "0.1.0",
+  "description": "Persistent Unreal world intelligence, offline spatial queries and shadow validation. Live actions use the existing official Unreal MCP.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Unreal Spatial Twin",
+        "shortDescription": "Read, simulate and verify Unreal worlds",
+        "category": "Developer Tools",
+        "capabilities": ["Read", "Write"]
+      }
+    }
+  }
+}

@@ -1,0 +1,721 @@
+{
+  "state": "PREPARED",
+  "model": "gpt-6.1-sol",
+  "effort": "high",
+  "cache_policy": "Fresh Unreal/agent/MCP processes per trial; OS/DDC/model caches not reset. First scan/resume/setup separately retained. FixedABBA, all failures retained.",
+  "timing": "Native launch + complete agent task/render assessment + actual independent verification_seconds. Restoration/asset cleanup and editor shutdown separately retained.",
+  "verified_native_schemas": [
+    {
+      "name": "editor_toolset.toolsets.scene.SceneTools.trace_world",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "title": "Vector",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          },
+          "end": {
+            "title": "Vector",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ]
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.scene.SceneTools.find_actors",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "default": null,
+            "type": "object",
+            "title": "/Script/Engine.Actor",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "actor_type": {
+            "default": null,
+            "type": "object",
+            "title": "/Script/CoreUObject.Class",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          },
+          "tag": {
+            "type": "string"
+          },
+          "bounds": {
+            "default": null,
+            "title": "Box",
+            "type": "object",
+            "properties": {
+              "min": {
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "max": {
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "isValid": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "min",
+              "max",
+              "isValid"
+            ]
+          },
+          "collision_channels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "EObjectTypeQuery",
+              "enum": [
+                "ObjectTypeQuery1",
+                "ObjectTypeQuery2",
+                "ObjectTypeQuery3",
+                "ObjectTypeQuery4",
+                "ObjectTypeQuery5",
+                "ObjectTypeQuery6",
+                "ObjectTypeQuery7",
+                "ObjectTypeQuery8",
+                "ObjectTypeQuery9",
+                "ObjectTypeQuery10",
+                "ObjectTypeQuery11",
+                "ObjectTypeQuery12",
+                "ObjectTypeQuery13",
+                "ObjectTypeQuery14",
+                "ObjectTypeQuery15",
+                "ObjectTypeQuery16",
+                "ObjectTypeQuery17",
+                "ObjectTypeQuery18",
+                "ObjectTypeQuery19",
+                "ObjectTypeQuery20",
+                "ObjectTypeQuery21",
+                "ObjectTypeQuery22",
+                "ObjectTypeQuery23",
+                "ObjectTypeQuery24",
+                "ObjectTypeQuery25",
+                "ObjectTypeQuery26",
+                "ObjectTypeQuery27",
+                "ObjectTypeQuery28",
+                "ObjectTypeQuery29",
+                "ObjectTypeQuery30",
+                "ObjectTypeQuery31",
+                "ObjectTypeQuery32",
+                "ObjectTypeQuery33",
+                "ObjectTypeQuery34",
+                "ObjectTypeQuery35",
+                "ObjectTypeQuery36",
+                "ObjectTypeQuery37",
+                "ObjectTypeQuery38",
+                "ObjectTypeQuery39",
+                "ObjectTypeQuery40",
+                "ObjectTypeQuery41",
+                "ObjectTypeQuery42",
+                "ObjectTypeQuery43",
+                "ObjectTypeQuery44",
+                "ObjectTypeQuery45",
+                "ObjectTypeQuery46",
+                "ObjectTypeQuery47",
+                "ObjectTypeQuery48",
+                "ObjectTypeQuery49",
+                "ObjectTypeQuery50",
+                "ObjectTypeQuery51",
+                "ObjectTypeQuery52",
+                "ObjectTypeQuery53",
+                "ObjectTypeQuery54",
+                "ObjectTypeQuery55",
+                "ObjectTypeQuery56",
+                "ObjectTypeQuery57",
+                "ObjectTypeQuery58",
+                "ObjectTypeQuery59",
+                "ObjectTypeQuery60",
+                "ObjectTypeQuery61",
+                "ObjectTypeQuery62",
+                "ObjectTypeQuery63",
+                "ObjectTypeQuery64"
+              ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "tag",
+          "collision_channels"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "title": "/Script/Engine.Actor",
+              "properties": {
+                "refPath": {
+                  "type": "string",
+                  "description": "Riferimento memorizzato come una stringa di percorso soft."
+                }
+              },
+              "required": [
+                "refPath"
+              ]
+            }
+          }
+        },
+        "required": [
+          "returnValue"
+        ]
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.actor.ActorTools.get_root_component",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "title": "/Script/Engine.Actor",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          }
+        },
+        "required": [
+          "actor"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "object",
+            "title": "/Script/Engine.SceneComponent",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.actor.ActorTools.get_actor_transform",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "title": "/Script/Engine.Actor",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          }
+        },
+        "required": [
+          "actor"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "object",
+            "title": "ToolsetTransform",
+            "description": "Rappresenta una trasformazione 3D con posizione, rotazione e scalatura opzionali.\nI campi non impostati significano \"identit\u00e0\" quando si creano oggetti e \"non modificare\" quando si modificano quelli esistenti.",
+            "properties": {
+              "location": {
+                "description": "La posizione nello spazio-mondo.",
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "rotation": {
+                "description": "Rotazione dello spazio mondo.",
+                "title": "Rotator",
+                "type": "object",
+                "properties": {
+                  "pitch": {
+                    "type": "number",
+                    "description": "Beccheggio (gradi) intorno all'asse Y"
+                  },
+                  "yaw": {
+                    "type": "number",
+                    "description": "Imbardata (gradi) intorno all'asse Z"
+                  },
+                  "roll": {
+                    "type": "number",
+                    "description": "Rollio (gradi) intorno all'asse X"
+                  }
+                },
+                "required": [
+                  "pitch",
+                  "yaw",
+                  "roll"
+                ]
+              },
+              "scale": {
+                "description": "La scala.",
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "returnValue"
+        ]
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.actor.ActorTools.get_label",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "actor": {
+            "type": "object",
+            "title": "/Script/Engine.Actor",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          }
+        },
+        "required": [
+          "actor"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "returnValue"
+        ]
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.object.ObjectTools.get_properties",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "type": "object",
+            "title": "/Script/CoreUObject.Object",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "instance",
+          "properties"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "returnValue"
+        ]
+      }
+    },
+    {
+      "name": "editor_toolset.toolsets.static_mesh.StaticMeshTools.get_bounds",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mesh": {
+            "type": "object",
+            "title": "/Script/Engine.StaticMesh",
+            "description": "Rappresenta un riferimento a UObject o UClass.",
+            "properties": {
+              "refPath": {
+                "type": "string",
+                "description": "Riferimento memorizzato come una stringa di percorso soft."
+              }
+            },
+            "required": [
+              "refPath"
+            ]
+          }
+        },
+        "required": [
+          "mesh"
+        ]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "returnValue": {
+            "title": "Box",
+            "type": "object",
+            "properties": {
+              "min": {
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "max": {
+                "title": "Vector",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "z": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y",
+                  "z"
+                ]
+              },
+              "isValid": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "min",
+              "max",
+              "isValid"
+            ]
+          }
+        },
+        "required": [
+          "returnValue"
+        ]
+      }
+    }
+  ],
+  "review_failure_policy": "Stop first failure; preserve effects/journal/counters and owned editor for inspected recovery, no bypass/replay.",
+  "agent_features": {
+    "code_mode": true,
+    "code_mode_only": true,
+    "scope": "explicit identical per-run CLI setting; user/global TOML untouched"
+  },
+  "runtime": "<qualification-checkout>\\Build\\SpatialTwin\\Release397\\SpatialTwinCodexPlugin",
+  "tool_profile": "focused",
+  "scenario": "batch",
+  "weights": {
+    "batch": 1
+  },
+  "order": "ABBA",
+  "native_navigation_defaults_required": true,
+  "source_sha256": {
+    "build/spatialtwinbench/open163/cold163.py": "991dd31d3827b8448b47d0eb96bf5b0459000fc0dda7b4a30b4bbbf07d4dc610",
+    "build/spatialtwinbench/control137.py": "adf613c6524018eb3b6c4543c82a008bc2cd73667cda1d67c9d85bccb77f704f",
+    "build/spatialtwinbench/control221.py": "3633b893b5ee5675373a006148af55af1a40a25e10c760584b8a2e377e2f5cb6",
+    "spatialtwincodexplugin/skills/unreal-spatial/skill.md": "af616ddfd3dc9fd98df2e5615b5ed01dc9779709af09ee12dc0da92d6894274f",
+    "tools/unrealspatialtwinmcp/agent_benchmark.py": "dc9742e2a7e6bcad7010712c6ef8bdc514dea09ffb7d3005648be1079d5938b1",
+    "tools/unrealspatialtwinmcp/agent_benchmark_guard.py": "b633f5d8d67e8e562f0f3736629cca1c7ef33d6407d1a00ad818799cbb314f28",
+    "tools/unrealspatialtwinmcp/apply_patch.py": "a7dbe7fc6efaf582e8f1de16b3a0da1d60a94c9d680f2e0efcea6764ecf57be8",
+    "tools/unrealspatialtwinmcp/author_benchmark_parity.py": "a51d46ab79ab2485143512e7d2b42479fbeee314bcc4e7a8bd02437f3c40b7b2",
+    "tools/unrealspatialtwinmcp/benchmark.py": "d21afb4c5668754809f8d4202de14044b24b53fda659a998f74f32fedf378d92",
+    "tools/unrealspatialtwinmcp/benchmark_fixture.py": "6f0aa58f5098de1e860d475cda08b7fff9b69aeec246f904b67f93ce593a1c8b",
+    "tools/unrealspatialtwinmcp/benchmark_native.py": "260f7cd9e4969a563c00ebc82967eee4ed4a39c4f16aec06190f7292a680dfc9",
+    "tools/unrealspatialtwinmcp/cold_agent_benchmark.py": "87ae0c694770da80c48ecb813879b1a0054e68a3125c568fe7b827815cff44be",
+    "tools/unrealspatialtwinmcp/cold_benchmark_control.py": "f0f9478b431e1d4901eb335f1477ddf3bb26d5486b5745e03fec0e362d835379",
+    "tools/unrealspatialtwinmcp/cold_benchmark_startup.py": "7408c13b0f2339b3c11f15cfea3a8b585d1ff2ff896ae93617f393c57f8b44e4",
+    "tools/unrealspatialtwinmcp/construction_benchmark.py": "8d8f9f20b63d34e3e00fd884ff50d6af05035b22b8b582ce52aa061dfc3696be",
+    "tools/unrealspatialtwinmcp/continuation_checks.py": "016b2d7fd2470c89d686f5992a1ce9e14bc5040f9793332ef4b917a99751ec5b",
+    "tools/unrealspatialtwinmcp/dependent_patch_checks.py": "61b404ad99138ce7cdfe7b7d3fa7c53831a4e1bbb421f7b01a9a36dd7add94b2",
+    "tools/unrealspatialtwinmcp/export_blender.py": "c35aadbf4b348835eea190e26f4828756ab9dbc22580a199bc40a5f727746f7a",
+    "tools/unrealspatialtwinmcp/live_checks.py": "c31f16fdeb1836390bbf624ba427fcef19edafa52d07371f3ff8593840648dcf",
+    "tools/unrealspatialtwinmcp/materialize.py": "97125be39b2daa69ce8ada0e807b222bd88276d6547b74293ec4646435058335",
+    "tools/unrealspatialtwinmcp/native_asset_parity.py": "288c940c2a4d658642be51a30d9286a5d5ce12c2bf7fdfba1e2fecb0e3df35d1",
+    "tools/unrealspatialtwinmcp/native_checks.py": "7b51cbd5d0f57865e14afe66672beac7959db7b2b396d293ec92015b9e62bac6",
+    "tools/unrealspatialtwinmcp/native_fill_parity.py": "8d52023690fe3d713f73519b1c56d6056efe8451d52d211704cfb98bea90f8fd",
+    "tools/unrealspatialtwinmcp/native_link_checks.py": "58d3d26129148043d5e1f85fbf66aca530a6f67201f723e37216421d3cf5cc48",
+    "tools/unrealspatialtwinmcp/native_link_parity.py": "57d97d8e507f4ade3de4d82b2f70a0c2a9d8589dcd5512bed0f0a71a841b5508",
+    "tools/unrealspatialtwinmcp/navigation_benchmark.py": "8fd63a6d1aa5d6d273bbddace11e7a92b9c6f2bffcc1892974ff0000a1b978ed",
+    "tools/unrealspatialtwinmcp/navigation_capacity_checks.py": "799db6c552e381c0715efdaddfefa9bb69e7565e0e19387a00dbea1c51178121",
+    "tools/unrealspatialtwinmcp/navigation_parity.py": "324c5d932f9582753ed3b63242c845966282b1faa0321e7e7a445fe0c5ad6378",
+    "tools/unrealspatialtwinmcp/open_agent_benchmark.py": "49c211b6d20949442ca612454b546ed46fd86bd5ab23d0a175566689f980e0a4",
+    "tools/unrealspatialtwinmcp/open_asset_audit_agent_benchmark.py": "34c01be612ff18ba75a263aed1de914c4e582c783ee7a98d812cdbb7b9cc93b7",
+    "tools/unrealspatialtwinmcp/open_benchmark_audit.py": "3158cbdc352ac3afb3d00bce8556a5d6df6448ffd58bb89840ca58a68001f6dc",
+    "tools/unrealspatialtwinmcp/open_benchmark_guard.py": "8a9ce3bb77a2195de5bc0f704586ea68cddd95717f54de56885943ffb9581f74",
+    "tools/unrealspatialtwinmcp/open_move_agent_benchmark.py": "0a8deb04b5ccf4154017666fb9898f858cd068ec8b521a4f12711c75b905bf40",
+    "tools/unrealspatialtwinmcp/open_move_benchmark_guard.py": "5be5e2a8a3bb27f33581074b4a2e46fc0540258ca0d0cf36feb0786cb5e42023",
+    "tools/unrealspatialtwinmcp/package_plugin.py": "272c0c83b397c988779196d5480a072e2c33b8ea436c3ddb72dcc02cd4a7e5ca",
+    "tools/unrealspatialtwinmcp/partial_save_checks.py": "46e58cb2536f27b9d7ae4fbd5bf6348b7046673313e0a12e4d743608aa07c2f8",
+    "tools/unrealspatialtwinmcp/place.py": "81f04093b9624a8b8809ed4f2e9ea2a957d99c2289710dd8ef1142baf1b6976e",
+    "tools/unrealspatialtwinmcp/planning_benchmark.py": "bc400d5299b3a7600ad8785e25696b1ffb8958ea4fd7ce714af75d1b0c313252",
+    "tools/unrealspatialtwinmcp/portable_checks.py": "086be9101f14bd6c07887b07f1dfe5e3e4cabbdfc015c25efe11a32541e9f1ce",
+    "tools/unrealspatialtwinmcp/prepare_benchmark.py": "d2232f0a85db0b65f0c1adbb18acc6e5cab67b24efe73bc3ad77886c485b3812",
+    "tools/unrealspatialtwinmcp/prepare_editor_fixture.py": "d27bf84f4a3030a7e99ae8fb5bcec0543af0bdb3d9e074914dcef5a0853224dc",
+    "tools/unrealspatialtwinmcp/production_agent_benchmark.py": "6ab854d110d64f18b7fde5a917c0534f48cb84bb4a977e3d2322720df93611fc",
+    "tools/unrealspatialtwinmcp/production_benchmark_guard.py": "06695481b60c9d69b792b1e32d0dbcbbb77f729117feed92cdd7bacdbf9608ab",
+    "tools/unrealspatialtwinmcp/rail_task.py": "9acdc27120fb0e8624342a09435f4a855dbeb19cb9cc7ec1c5a2e9bd5f8dcc24",
+    "tools/unrealspatialtwinmcp/recovery_checks.py": "6f825c81168030691f0f8c3d60650e960d69defd54e5c456372879e8f31d658e",
+    "tools/unrealspatialtwinmcp/render.py": "fbfc84f98bfa569a40de55eca7a3384ee847cdd753461aa83e2f056cec1b8274",
+    "tools/unrealspatialtwinmcp/server.py": "63951b5df603692380926b1b83c242af27a995a84e52e14589cd613cfaf1ff72",
+    "tools/unrealspatialtwinmcp/spatial_twin/__init__.py": "6af24111d199f3f42241192f5d48b2f55c363a1c1350e82ad973ef2543edbe3b",
+    "tools/unrealspatialtwinmcp/spatial_twin/assist.py": "24d6c2bfabe584697b2d952e6dd580e5fd76457e8fddf4e076081075f990bb18",
+    "tools/unrealspatialtwinmcp/spatial_twin/collision.py": "1d70b00dbc6d509d56d463f2b6f2dd8c8c650f4e15e593cff28539845f9e8af2",
+    "tools/unrealspatialtwinmcp/spatial_twin/conform.py": "cb8ced7de0ed7acd98c1323cba23843ed063c1de2e9460c845b6b057ebf44958",
+    "tools/unrealspatialtwinmcp/spatial_twin/continuation.py": "e7bd585d37890d04dee120e24686c00abdf14214c76bbbcf71f0ba9c83e4b90a",
+    "tools/unrealspatialtwinmcp/spatial_twin/contracts.py": "9212489c9b1da8a188300880b67ef72ad747ef9995cf1098422ade8c7302208d",
+    "tools/unrealspatialtwinmcp/spatial_twin/geometry.py": "12826fdc2b678370797fd477e0e57a1275c5a309ddc4ac95a15d8311630f9e31",
+    "tools/unrealspatialtwinmcp/spatial_twin/navigation.py": "e0ae974b8d162b0c2fb8a36cb7b7ffa8cc576271385fbdad182b36fc11bf523c",
+    "tools/unrealspatialtwinmcp/spatial_twin/query.py": "56ed0ca50483f59024e110ad34296b1bb17f8868980ddb80001b01834936635c",
+    "tools/unrealspatialtwinmcp/spatial_twin/server.py": "510320492a90b208000e4f26a5335fdde5f26f10634730b3167cc7747e15dc45",
+    "tools/unrealspatialtwinmcp/spatial_twin/shadow.py": "0ab7bd23f72e6dbe487cd821497d5c8498f5eff72787a3491e3d8215c647baf7",
+    "tools/unrealspatialtwinmcp/spatial_twin/staging.py": "269afc313a4923c31c891d135e8ba07d9deb2c6a13bf8a62cc395c5fe4576381",
+    "tools/unrealspatialtwinmcp/spatial_twin/store.py": "096a88d8609509457109390def755c3cc3620b42e45e601162395073a950933f",
+    "tools/unrealspatialtwinmcp/spatial_twin/verification.py": "31b97b2dd7e762c3ff011c0494d2c2cab66d4f796caac39e1b9e830f801afa43",
+    "tools/unrealspatialtwinmcp/spatial_twin/worlds.py": "a8be16f7d6445623d4f0486fecc579d4b9d3f80f3b3142afee03d7fd1442c443",
+    "tools/unrealspatialtwinmcp/test_authored_navigation.py": "2d1422be25b28ec6709c1d5742ce131d7ecdb7d2bb0cbef64e36ea6f172bcde4",
+    "tools/unrealspatialtwinmcp/test_benchmark_audit.py": "0040ac3e2c04c064a90c09744dbf36e782fcb1449f54a06836ff21177a2a360a",
+    "tools/unrealspatialtwinmcp/test_benchmark_prompts.py": "1c3277d82873cabf0088e5ac370d8a2104f8b35b20f4bca64b1c38009dc3a6aa",
+    "tools/unrealspatialtwinmcp/test_cold_liveness.py": "2b96c76ffa256ef0acca198880a5bbe84c08572f2acfa94a494b3f3faae5b886",
+    "tools/unrealspatialtwinmcp/test_cold_scope.py": "9d1df3a88a8531ec67e3e6d86be58ff06eb8376445bafa46248cf859c8de5bdf",
+    "tools/unrealspatialtwinmcp/test_conform.py": "27aca7566ed8362c1c51cf38033f10a1cb8044a977d17cf6b13bbf231321ae47",
+    "tools/unrealspatialtwinmcp/test_editor_startup.py": "0025c410ab855fd74de16c99be99c17f30eab6f8523c446e2bcbf08b005a7d4b",
+    "tools/unrealspatialtwinmcp/test_ground.py": "30b641dcafb1173d78f9809c18f74f72ee72c81b206bcc7b7529d2dad4bd8066",
+    "tools/unrealspatialtwinmcp/test_mcp_contracts.py": "ffbacfda083acfc572fa8a837913370f7721187e2a5622ad98203c43ba425c69",
+    "tools/unrealspatialtwinmcp/test_navigation_capacity.py": "464a5d27fa36ebed3b3730ffb000a2a94e0efeba6e0015d4993513f644243942",
+    "tools/unrealspatialtwinmcp/test_offline_preparation.py": "36dff0d26674a6d9577fc660718e6ea244d9648a47c824ffa11c4081b399decc",
+    "tools/unrealspatialtwinmcp/test_place.py": "e5e07fd7de4c52eb390feecda9af92a84acbeb97634792a5f6684633e2e4a732",
+    "tools/unrealspatialtwinmcp/test_plugin_link.py": "bed342f86d1571346c4ca154f74c2854a07ef8ae2bce94c020e3e4a20d64bc6b",
+    "tools/unrealspatialtwinmcp/test_read_schemas.py": "a5838f86af03c44e258dd6043ff95eec356b5e9b0f31741cb0964835dd6ffe69",
+    "tools/unrealspatialtwinmcp/test_region_queries.py": "0e4ccdcb9a50adb79e224d37631c27ccc4736c685a1cfba28327b1d8df777834",
+    "tools/unrealspatialtwinmcp/test_runtime_paths.py": "13926b2fbd73792f0c876eba452af5954e485e57998452fa386a6e65daf77d59",
+    "tools/unrealspatialtwinmcp/test_shadow_paging.py": "7bd014cc043bd918b65c017ed2756badf1498efd8d973f5199e2f0ba4005bda5",
+    "tools/unrealspatialtwinmcp/test_shadow_reads.py": "a6c5f219542b7202d8ad91328d5316ee90b32deeb2d3ec792605a8a650044c08",
+    "tools/unrealspatialtwinmcp/test_source_expansion.py": "0801195466b99f9d2504127dd15bbc7f26d38726e20d584e516220044587d211",
+    "tools/unrealspatialtwinmcp/test_spatial_twin.py": "6b3aa5a764b0944decb470e9a05c8e4245104536a78171eff38cfaa8473021e0",
+    "tools/unrealspatialtwinmcp/test_tile_geometry.py": "a98474e411566159271fe44074ce1fd339fa7aee2fefda6410f164618e74de52",
+    "tools/unrealspatialtwinmcp/verify_connections.py": "c76f0c631bf7d8f4dbe724c83b54eb8a0bf3bff8538226e634184695ddc6b21d",
+    "tools/unrealspatialtwinmcp/verify_navigation_slope.py": "90cd8347a9aa7ee5de41d2ec801c7bf65dfeb6a08a1f3fe54831a42ed105031e",
+    "tools/unrealspatialtwinmcp/verify_production_benchmark.py": "e62326d1e1549816d1b9269671f7e14b2da661761d981c6623d6a3e81b2334dd",
+    "tools/unrealspatialtwinmcp/world_checks.py": "2a45bd217a40a79f0bab101629eee3a14b467046b365abb7d66fe763c2e1e2c3"
+  },
+  "task": "Discover floating source objects and ground them; same native/default/support/render checks.",
+  "acceptance": "Identical observed-source results and quality, native whole-agent counters, repeated ABBA; one frozen reader/skill/native version for all four activities. No thresholds or universal claim from partial trials.",
+  "plan": [
+    {
+      "route": "without",
+      "scenario": "batch",
+      "name": "P416batchwithout0",
+      "spec": "<qualification-checkout>\\Build\\SpatialTwinBench\\Portfolio252\\Cold137Without\\spec252-batch.json"
+    },
+    {
+      "route": "with",
+      "scenario": "batch",
+      "name": "P416batchwith1",
+      "spec": "<qualification-checkout>\\Build\\SpatialTwinBench\\Portfolio252\\Cold137With\\spec252-batch.json"
+    },
+    {
+      "route": "with",
+      "scenario": "batch",
+      "name": "P416batchwith2",
+      "spec": "<qualification-checkout>\\Build\\SpatialTwinBench\\Portfolio252\\Cold137With\\spec252-batch.json"
+    },
+    {
+      "route": "without",
+      "scenario": "batch",
+      "name": "P416batchwithout3",
+      "spec": "<qualification-checkout>\\Build\\SpatialTwinBench\\Portfolio252\\Cold137Without\\spec252-batch.json"
+    }
+  ],
+  "agent_workflow": "open",
+  "overlap_native_preparation": true,
+  "change": "Current public toolkit/skill, bounds contract303, native378. Same task/model/effort/weights/quality/verification; overlap unchanged. New trials only, never resume292.",
+  "original_receipt_sha256": "c5dea6f29845e3adeee207367724398aa379bb25574220476bb925d210b93ac1"
+}
